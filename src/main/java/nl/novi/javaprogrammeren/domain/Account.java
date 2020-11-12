@@ -1,5 +1,7 @@
 package nl.novi.javaprogrammeren.domain;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -8,7 +10,8 @@ import java.util.Locale;
  * withdrawal, and interest.
  */
 public class Account {
-    private NumberFormat numberFormatter = NumberFormat.getCurrencyInstance(Locale.GERMAN);
+
+    private static final Locale COUNTRY_CODE = Locale.ITALY;
 
     private static final float INTEREST_RATE = 0.045f;  // interest rate of 4.5%
 
@@ -105,6 +108,18 @@ public class Account {
      *  @return formatted account information
      */
     public String toString() {
-        return (accountNumber + "\t" + name + "\t" + numberFormatter.format(balance));
+        return (accountNumber + "\t" + name + "\t" + localStyleForeignFormat(COUNTRY_CODE).format(balance));
+    }
+
+    public static NumberFormat localStyleForeignFormat(Locale locale) {
+        NumberFormat format = NumberFormat.getCurrencyInstance(locale);
+        if (format instanceof DecimalFormat) {
+            DecimalFormat df = (DecimalFormat) format;
+            // use local/default decimal symbols with original currency symbol
+            DecimalFormatSymbols dfs = new DecimalFormat().getDecimalFormatSymbols();
+            dfs.setCurrency(df.getCurrency());
+            df.setDecimalFormatSymbols(dfs);
+        }
+        return format;
     }
 }

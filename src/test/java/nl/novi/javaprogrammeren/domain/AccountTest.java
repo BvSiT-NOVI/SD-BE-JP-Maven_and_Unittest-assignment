@@ -18,7 +18,6 @@ class AccountTest {
 
     @Test
     void depositingNegativeNumberShouldReturnFalse() {
-
         //Arrange
         Account account = new Account("Nick", 12, 400);
 
@@ -99,5 +98,31 @@ class AccountTest {
     void givenNegativeBalanceNoWithdrawl() {
         Account negativeAccount = new Account("Brook", 501, -50);
         assertFalse(negativeAccount.withdraw(100, 10));
+    }
+
+
+    @Test
+    void testAddingInterest() {
+        positiveAccount.addInterest();
+        assertEquals(1000*1.045, positiveAccount.getBalance());
+    }
+
+    //Toevoeging Nick:
+    // Voor de volledigheid kun je getters en setters testen.
+    // Ik doe dit meestal niet.
+    @Test
+    void testGetAccountNumber() {
+        assertEquals(100, positiveAccount.getAccountNumber());
+    }
+
+    @Test
+    void testToString() {
+        /* ToString Methodes zijn altijd een draak om te testen.
+        De numberformat werkte niet helemaal, dus deze heb ik herschreven in de Account.Java klasse.
+        Daarnaast voegt de numberformat een non breaking space aan de String toe. Dat moeten we dus ook aan de
+        expected kant toevoegen in de assertEquals. Dat is dit:s "\u00a0"
+        */
+
+        assertEquals(100 + "\t" + "Sjaak" + "\t" + "1,000.00"+ "\u00a0" +"€", positiveAccount.toString());
     }
 }
