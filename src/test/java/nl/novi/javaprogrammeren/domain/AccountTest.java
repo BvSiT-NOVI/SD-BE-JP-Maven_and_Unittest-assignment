@@ -10,10 +10,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class AccountTest {
 
     private Account positiveAccount;
+    private Account floatTestAccount;
 
     @BeforeEach
     public void setup() {
         positiveAccount = new Account("Sjaak", 100, 1000);
+        floatTestAccount = new Account("Float", 1001,400000.00f);
     }
 
     @Test
@@ -125,4 +127,19 @@ class AccountTest {
 
         assertEquals(100 + "\t" + "Sjaak" + "\t" + "1,000.00"+ "\u00a0" +"€", positiveAccount.toString());
     }
+
+    @Test
+    void testBalanceAfterFiveCentReduction() {
+        floatTestAccount.withdraw(0.05f, 0);
+        assertEquals(399999.95, floatTestAccount.getBalance());
+    }
+
+    @Test
+    void testBalanceAfter1000TenCentDeposits() {
+        for (int i = 0; i < 1000; i++) {
+            floatTestAccount.deposit(0.10f);
+        }
+        assertEquals(400100, floatTestAccount.getBalance());
+    }
+
 }

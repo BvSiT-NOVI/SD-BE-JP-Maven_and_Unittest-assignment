@@ -1,5 +1,5 @@
 # Oefenen met Maven en JUnit
-## Antwoord-branch
+## Antwoord-branch-Bonusvraag
 
 Deze opdracht bestaat uit twee delen.
 * Je gaat een **nieuw** Maven-project maken en je voegt de benodigde bestanden toe aan dit Maven Project.
@@ -47,3 +47,18 @@ Extra opgave (floats)
 2. Run BadMoney.java
 3. Zie je hier wat er fout gaat?
 4. Controleer Account.java. Heeft Account.java ook dit probleem? Schrijf een test om dit testen.
+
+## Antwoord BadMoney
+
+Je ziet dat het werken met getallen in BadMoney.java niet goed gaat. In andere woorden,  het is gewoonweg niet
+handig om Floats te gebruiken voor het werken met geld.
+Meer informatie kun je hier vinden:
+ * https://en.wikipedia.org/wiki/IEEE_754
+ * https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html
+ * https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/math/BigDecimal.html
+ 
+ De falende Unit-testen zijn terug te vinden in AccountTest. Wil je dit fixen, dan dien je met BigDecimal te gaan
+ werken.
+ 
+ PS: Example 3 is niet af te vangen in Unit-testen, omdat deze bereking gebeurt voor het aanroepen van een methode in 
+ `Account`.
