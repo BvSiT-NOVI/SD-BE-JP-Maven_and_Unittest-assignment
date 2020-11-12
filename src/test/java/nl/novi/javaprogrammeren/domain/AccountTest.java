@@ -35,7 +35,7 @@ class AccountTest {
     }
 
     @Test
-    void givenPositiveAmountDepositShoudlReturnTrue() {
+    void givenPositiveAmountDepositShouldReturnTrue() {
         assertTrue(positiveAccount.deposit(100));
     }
 
@@ -86,11 +86,18 @@ class AccountTest {
     }
 
     @Test
+    void givenPositiveBalanceZeroWithdrawlIsPossible() {
+        assertTrue(positiveAccount.withdraw(0, 10));
+    }
+
+    @Test
+    void givenPositiveBalanceZeroFeeIsPossible() {
+        assertTrue(positiveAccount.withdraw(10, 0));
+    }
+
+    @Test
     void givenNegativeBalanceNoWithdrawl() {
         Account negativeAccount = new Account("Brook", 501, -50);
         assertFalse(negativeAccount.withdraw(100, 10));
     }
-
-
-
 }
