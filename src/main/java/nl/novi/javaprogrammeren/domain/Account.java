@@ -38,12 +38,10 @@ public class Account {
     public boolean deposit(float amount) {
         boolean result = true;
         // is amount invalid?
-        if (amount < 0)
-        {
+        if (amount < 0) {
             result = false;
         }
-        else
-        {
+        else {
             balance = balance + amount;
         }
 
@@ -57,15 +55,21 @@ public class Account {
      *  @param amount value to be deducted from the balance
      *  @param fee the transaction fee debited from the account
      *  @return true if transaction was successful, false otherwise;
+     *
+     *  Toevoeging Nick:
+     *  Na het draaien van givenEnoughBalanceForWithdrawlAccountCanGoNegativeWithFee() vonden we een bug
+     *  in deze methode. Daarom is de methode aangepast.
      */
     public boolean withdraw(float amount, float fee) {
+
+        boolean isValid = isValidWithdrawl(amount, fee);
+
         // validate parameters
-        if (isValidWithdrawl(amount, fee))
-        {
+        if (isValid) {
             amount += fee;
             balance = balance - amount;
         }
-        return isValidWithdrawl(amount, fee);
+        return isValid;
     }
 
     /* Determine if withdrawal parameters are valid */
