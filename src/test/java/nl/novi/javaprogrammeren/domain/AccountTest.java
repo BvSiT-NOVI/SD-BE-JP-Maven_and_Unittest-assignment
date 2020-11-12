@@ -73,5 +73,24 @@ class AccountTest {
         assertTrue(positiveAccount.withdraw(1000, 10));
     }
 
+    @Test
+    void givenEnoughBalanceCustomerBalanceShouldBeChanged() {
+        positiveAccount.withdraw(40, 10);
+        assertEquals(950, positiveAccount.getBalance());
+    }
+
+    @Test
+    void givenEnoughBalanceBalanceShouldGoNegativeWithFee() {
+        positiveAccount.withdraw(1000, 10);
+        assertEquals(-10, positiveAccount.getBalance());
+    }
+
+    @Test
+    void givenNegativeBalanceNoWithdrawl() {
+        Account negativeAccount = new Account("Brook", 501, -50);
+        assertFalse(negativeAccount.withdraw(100, 10));
+    }
+
+
 
 }
